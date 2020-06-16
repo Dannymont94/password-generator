@@ -1,22 +1,23 @@
 // Assignment code here
 var generatePassword = function () {
+  var password = "";
+
   // Choose password character length
-  var passLength = passwordLength();
+  const passLength = passwordLength();
 
   // Choose character types in password
-  var charChoice = characterChoice();
+  const charChoice = characterChoice();
+  console.log(charChoice.length);
 
 
   // generate password based on selections
-  for (var i = 1; 1 <= passLength; i++) {
-
+  for (var i = 1; i <= passLength; i++) {
+    password = password + charChoice.charAt(Math.floor(Math.random() * charChoice.length));
   }
   
   // return password
   return password;
-}
-
-
+};
 
 // prompt for password character length
 var passwordLength = function() {
@@ -40,27 +41,24 @@ var passwordLength = function() {
   return characterLength;
 };
 
-
-
 // prompts for character types: lowercase, uppercase, numeric, and/or special characters
 var characterChoice = function() {
-
   var charChoice = "";
 
   // define different character types
-  var lower = "abcdefghijklmnopqrstuvwxyz";
-  var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  var number = "0123456789";
-  var symbol = "!?@#$%^&*()_";
+  const lower = "abcdefghijklmnopqrstuvwxyz";
+  const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const number = "0123456789";
+  const special = "!#$%&()*+,-./:;<=>?@[\]^_`{|}~";
 
   // character selection prompts
-  var lowercaseConfirm = window.confirm("Should your password contain lowercase characters?");
+  const lowercaseConfirm = window.confirm("Should your password contain lowercase characters?");
 
-  var uppercaseConfirm = window.confirm("Should your password contain uppercase characters?");
+  const uppercaseConfirm = window.confirm("Should your password contain uppercase characters?");
 
-  var numericConfirm = window.confirm("Should your password contain numeric characters?");
+  const numericConfirm = window.confirm("Should your password contain numeric characters?");
 
-  var specialConfirm = window.confirm("Should your password contain special characters?");
+  const specialConfirm = window.confirm("Should your password contain special characters?");
 
   // conditional statement to validate input and require at least one character type
   if (lowercaseConfirm === false && uppercaseConfirm === false && numericConfirm === false && specialConfirm === false) {
@@ -82,19 +80,12 @@ var characterChoice = function() {
   }
 
   if (specialConfirm) {
-    charChoice = charChoice + symbol;
+    charChoice = charChoice + special;
   }
 
   return charChoice;
 };
-
-
-
-
-
-
-
-
+// Assignment code ends here
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
