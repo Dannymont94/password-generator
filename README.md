@@ -10,3 +10,6 @@ A random password generator that allows the user to specify the password's lengt
 
 ## Author
 Made by Daniel Monterrosa
+
+## Link
+https://dannymont94.github.io/password-generator/
