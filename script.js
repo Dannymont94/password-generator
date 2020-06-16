@@ -1,5 +1,5 @@
 // Assignment code here
-var generatePassword = function () {
+const generatePassword = function () {
   var password = "";
 
   // Choose password character length
@@ -20,7 +20,7 @@ var generatePassword = function () {
 };
 
 // prompt for password character length
-var passwordLength = function() {
+const passwordLength = function() {
   var characterLength = window.prompt("How many characters should your password be? Please enter a number between 8 and 128.");
   
   // make sure user actually typed something into the prompt
@@ -42,7 +42,7 @@ var passwordLength = function() {
 };
 
 // prompts for character types: lowercase, uppercase, numeric, and/or special characters
-var characterChoice = function() {
+const characterChoice = function() {
   var charChoice = "";
 
   // define different character types
@@ -64,7 +64,7 @@ var characterChoice = function() {
   if (lowercaseConfirm === false && uppercaseConfirm === false && numericConfirm === false && specialConfirm === false) {
     window.alert("Please select at least one character type.");
     // start character select function again
-    characterChoice();
+    return characterChoice();
   }
 
   if (lowercaseConfirm) {
