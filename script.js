@@ -1,102 +1,113 @@
-// Assignment code here
-const generatePassword = function () {
-  var password = "";
+// Assignment code start
+var password = "";
 
+var generatePassword = function () {
+  // reset password to empty string each time button is pressed
+  password = "";
   // Choose password character length
-  const passLength = passwordLength();
+  var passLength = getPassLength();
 
-  // Choose character types in password
-  const charChoice = characterChoice();
-  console.log(charChoice.length);
+  // Choose password character types
+  var charChoice = getCharChoice();
 
-
-  // generate password based on selections
-  for (var i = 1; i <= passLength; i++) {
-    password = password + charChoice.charAt(Math.floor(Math.random() * charChoice.length));
+  // generate random password based on selections
+  for (var i = password.length; i < passLength; i++) {
+    password += getRandomChar(charChoice);
   }
   
-  // return password
   return password;
 };
 
 // prompt for password character length
-const passwordLength = function() {
-  var characterLength = window.prompt("How many characters should your password be? Please enter a number between 8 and 128.");
+var getPassLength = function() {
+  // ask user their password length
+  var passLength = window.prompt("How many characters should your password be? Please enter a number between 8 and 128.");
   
   // make sure user actually typed something into the prompt
-  while (characterLength === "" || characterLength === null) {
+  if (passLength === "" || passLength === null) {
       window.alert("Please enter a number between 8 and 128.");
-      return passwordLength();
+      return getPassLength();
   }
   
-  // convert user's response into integer
-  characterLength = parseInt(characterLength);
+  // convert user's response to number data type and round down if they entered a float
+  passLength = Math.floor(Number(passLength));
 
   // make sure user's response is a number between 8 and 128
-  if (characterLength > 128 || characterLength < 8 || isNaN(characterLength)) {
-      window.alert("Please enter a number between 8 and 128.")
-      return passwordLength();
+  if (passLength > 128 || passLength < 8 || isNaN(passLength)) {
+      window.alert("Please enter a number between 8 and 128.");
+      return getPassLength();
   }
-  // return validated response
-  return characterLength;
+
+  return passLength;
 };
 
 // prompts for character types: lowercase, uppercase, numeric, and/or special characters
-const characterChoice = function() {
+var getCharChoice = function() {
+  // reset charChoice to empty string each time button is pressed
   var charChoice = "";
 
   // define different character types
-  const lower = "abcdefghijklmnopqrstuvwxyz";
-  const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const number = "0123456789";
-  const special = "!#$%&()*+,-./:;<=>?@[\]^_`{|}~";
+  var lower = "abcdefghijklmnopqrstuvwxyz";
+  var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var num = "0123456789";
+  var special = "!#$%&()*+,-./:;<=>?@[\]^_`{|}~";
 
   // character selection prompts
-  const lowercaseConfirm = window.confirm("Should your password contain lowercase characters?");
+  var lowerConfirm = window.confirm("Should your password contain lowercase characters?");
+  var upperConfirm = window.confirm("Should your password contain uppercase characters?");
+  var numConfirm = window.confirm("Should your password contain numeric characters?");
+  var specialConfirm = window.confirm("Should your password contain special characters?");
 
-  const uppercaseConfirm = window.confirm("Should your password contain uppercase characters?");
-
-  const numericConfirm = window.confirm("Should your password contain numeric characters?");
-
-  const specialConfirm = window.confirm("Should your password contain special characters?");
-
-  // conditional statement to validate input and require at least one character type
-  if (lowercaseConfirm === false && uppercaseConfirm === false && numericConfirm === false && specialConfirm === false) {
+  // check that user selected at least one character type
+  if (lowerConfirm === false && upperConfirm === false && numConfirm === false && specialConfirm === false) {
     window.alert("Please select at least one character type.");
-    // start character select function again
-    return characterChoice();
+    return getCharChoice();
   }
 
-  if (lowercaseConfirm) {
-    charChoice = charChoice + lower;
+  if (lowerConfirm) {
+    // guarantee a lowercase character in the password by generating a random character and adding it to password, then add lower to charChoice
+    password += getRandomChar(lower);
+    charChoice += lower;
   }
 
-  if (uppercaseConfirm) {
-    charChoice = charChoice + upper;
+  if (upperConfirm) {
+    // guarantee an uppercase character in the password by generating a random character and adding it to password, then add upper to charChoice
+    password += getRandomChar(upper);
+    charChoice += upper;
   }
 
-  if (numericConfirm) {
-    charChoice = charChoice + number;
+  if (numConfirm) {
+    // guarantee a numeric character in the password by generating a random character and adding it to password, then add num to charChoice
+    password += getRandomChar(num);
+    charChoice += num;
   }
-
+  
   if (specialConfirm) {
-    charChoice = charChoice + special;
+    // guarantee a special character in the password by generating a random character adding it to password, then add special to charChoice
+    password += getRandomChar(special);
+    charChoice += special;
   }
 
   return charChoice;
 };
-// Assignment code ends here
+
+// generate random index from charString
+var getRandomChar = function(charString) {
+  return charString[Math.floor(Math.random() * charString.length)];
+};
+// Assignment code end
+
+
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var finalPassword = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
-
+  passwordText.value = finalPassword;
 }
 
 // Add event listener to generate button
